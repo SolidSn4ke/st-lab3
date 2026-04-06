@@ -9,9 +9,9 @@ import lombok.Getter;
 
 public class RunEnvironment {
     @Getter
-    static List<WebDriver> webDriver = new ArrayList<>();
+    static List<WebDriver> webDrivers = new ArrayList<>();
 
     public static <D extends WebDriver> void addWebDriver(D driver) {
-        webDriver.add(driver);
+        webDrivers.add(driver);
     }
 }
