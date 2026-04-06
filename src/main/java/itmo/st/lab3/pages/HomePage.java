@@ -15,17 +15,22 @@ import lombok.NonNull;
 @Getter
 public class HomePage extends Page {
 
+    static final String logInButtonXpath = "/html/body/header/div/nav/ol/li[3]/a";
     WebElement logInButton;
+
+    static final String searchBarXpath = "//*[@id=\"search\"]/div/input";
+    WebElement searchBar;
 
     public HomePage(@NonNull WebDriver driver) {
         super.driver = driver;
-        this.logInButton = driver.findElement(By.xpath("/html/body/header/div/nav/ol/li[3]/a"));
+        this.logInButton = driver.findElement(By.xpath(logInButtonXpath));
+        this.searchBar = driver.findElement(By.xpath(searchBarXpath));
     }
 
     public AuthPage goToAuthPage() {
         logInButton.click();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlContains("/users/login"));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(AuthPage.emailFieldXpath)));
         return new AuthPage(driver);
     }
 }
