@@ -17,11 +17,15 @@ public class LoggedHomePage extends Page {
     static final String profileButtonXpath = "//*[@id=\"user-profile-button\"]";
     WebElement profileButton;
 
+    static final String firstQuestionXpath = "/html/body/div[3]/div[2]/div[1]/div[3]/div/div[1]/div/div[2]/h3/a";
+    WebElement firstQuestion;
+
     public LoggedHomePage(WebDriver driver) {
         super.driver = driver;
         this.searchBar = driver.findElement(By.xpath(searchBarXpath));
         this.aiAssistButton = driver.findElement(By.xpath(aiAssistButtonXpath));
         this.profileButton = driver.findElement(By.xpath(profileButtonXpath));
+        this.firstQuestion = driver.findElement(By.xpath(firstQuestionXpath));
     }
 
     public SearchPage search(String query, SearchPage.SearchPageType type) {
@@ -61,5 +65,11 @@ public class LoggedHomePage extends Page {
         profileButton.click();
         waitForElement(ProfilePage.editProfileButtonXpath, 10);
         return new ProfilePage(driver);
+    }
+
+    public QuestionPage goToQuestionPage() {
+        firstQuestion.click();
+        waitForElement(QuestionPage.upvoteButtonXpath, 10);
+        return new QuestionPage(driver);
     }
 }
