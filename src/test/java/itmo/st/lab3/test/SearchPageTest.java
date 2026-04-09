@@ -62,4 +62,22 @@ public class SearchPageTest extends PageTest {
                             .map(span -> span.getAttribute("innerText")).allMatch(s -> s.equals("Jody Dawkins")));
                 }));
     }
+
+    @TestFactory
+    public Stream<DynamicTest> searchByScoreTest() {
+        return RunEnvironment.getWebDrivers().stream()
+                .map(d -> dynamicTest(d.getClass().getName().replace(d.getClass().getPackageName(), ""), () -> {
+                    HomePage homePage = new HomePage(d);
+                    AuthPage authPage = homePage.goToAuthPage();
+                    LoggedHomePage loggedHomePage = authPage.logIn(EMAIL, PASSWORD);
+                    SearchPage searchPage = loggedHomePage.search("score:20000");
+
+                    assertTrue(searchPage.getDivWithResults()
+                            .findElements(By.xpath(
+                                    ".//div[@class='s-post-summary--stats-item s-post-summary--stats-item__emphasized']/span[1]"))
+                            .stream()
+                            .map(span -> Long.valueOf(span.getAttribute("innerText")))
+                            .allMatch(l -> l > 20000));
+                }));
+    }
 }
