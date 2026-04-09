@@ -28,6 +28,7 @@ public class SearchPage extends Page {
 
     public SearchPage(WebDriver driver, SearchPageType type) {
         super.driver = driver;
+        super.navigator = new LoggedNavigator(driver);
         switch (type) {
             case TAGGED -> {
                 this.usedTaggs = driver.findElement(By.xpath(usedTaggsXpath));

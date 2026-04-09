@@ -14,6 +14,7 @@ import itmo.st.lab3.pages.AuthPage;
 import itmo.st.lab3.pages.EditProfilePage;
 import itmo.st.lab3.pages.HomePage;
 import itmo.st.lab3.pages.LoggedHomePage;
+import itmo.st.lab3.pages.LoggedNavigator;
 import itmo.st.lab3.pages.ProfilePage;
 
 public class ProfilePageTest extends PageTest {
@@ -25,7 +26,7 @@ public class ProfilePageTest extends PageTest {
                     HomePage homePage = new HomePage(d);
                     AuthPage authPage = homePage.goToAuthPage();
                     LoggedHomePage loggedHomePage = authPage.logIn(EMAIL, PASSWORD);
-                    ProfilePage profilePage = loggedHomePage.goToProfilePage();
+                    ProfilePage profilePage = ((LoggedNavigator) loggedHomePage.getNavigator()).goToProfilePage();
                     EditProfilePage editProfilePage = profilePage.goToEditProfilePage();
                     profilePage = editProfilePage.editAboutAndSave(sb.toString());
                     assertEquals(sb.toString(),
@@ -41,7 +42,7 @@ public class ProfilePageTest extends PageTest {
                     HomePage homePage = new HomePage(d);
                     AuthPage authPage = homePage.goToAuthPage();
                     LoggedHomePage loggedHomePage = authPage.logIn(EMAIL, PASSWORD);
-                    ProfilePage profilePage = loggedHomePage.goToProfilePage();
+                    ProfilePage profilePage = ((LoggedNavigator) loggedHomePage.getNavigator()).goToProfilePage();
                     assertEquals("Einherjar",
                             profilePage.getProfileName().getAttribute("innerText"));
                 }));

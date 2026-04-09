@@ -14,6 +14,7 @@ public class EditProfilePage extends Page {
 
     public EditProfilePage(WebDriver driver) {
         super.driver = driver;
+        super.navigator = new LoggedNavigator(driver);
         this.aboutTextArea = driver.findElement(By.xpath(aboutTextAreaXpath));
         this.saveButton = driver.findElement(By.xpath(saveButtonXpath));
     }

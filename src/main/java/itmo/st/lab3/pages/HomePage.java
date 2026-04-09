@@ -3,6 +3,7 @@ package itmo.st.lab3.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -17,6 +18,7 @@ public class HomePage extends Page {
 
     public HomePage(@NonNull WebDriver driver) {
         super.driver = driver;
+        super.navigator = new Navigator(driver);
         this.logInButton = driver.findElement(By.xpath(logInButtonXpath));
         this.searchBar = driver.findElement(By.xpath(searchBarXpath));
     }

@@ -11,20 +11,13 @@ public class LoggedHomePage extends Page {
 
     static final String reputationXpath = "//*[@id=\"user-profile-button\"]/div[2]/ul/li[1]/span";
 
-    static final String aiAssistButtonXpath = "//*[@id=\"nav-askstack\"]";
-    WebElement aiAssistButton;
-
-    static final String profileButtonXpath = "//*[@id=\"user-profile-button\"]";
-    WebElement profileButton;
-
-    static final String firstQuestionXpath = "/html/body/div[3]/div[2]/div[1]/div[3]/div/div[1]/div/div[2]/h3/a";
+    protected static final String firstQuestionXpath = "/html/body/div[3]/div[2]/div[1]/div[3]/div/div[1]/div/div[2]/h3/a";
     WebElement firstQuestion;
 
     public LoggedHomePage(WebDriver driver) {
         super.driver = driver;
+        super.navigator = new LoggedNavigator(driver);
         this.searchBar = driver.findElement(By.xpath(searchBarXpath));
-        this.aiAssistButton = driver.findElement(By.xpath(aiAssistButtonXpath));
-        this.profileButton = driver.findElement(By.xpath(profileButtonXpath));
         this.firstQuestion = driver.findElement(By.xpath(firstQuestionXpath));
     }
 
@@ -53,18 +46,6 @@ public class LoggedHomePage extends Page {
             sb.append(String.format("[%s]", tag));
         }
         return search(sb.toString(), SearchPage.SearchPageType.TAGGED);
-    }
-
-    public AIAssistPage goToAiAssistPage() {
-        aiAssistButton.click();
-        waitForElement(AIAssistPage.aiAssistantButtonXpath, 10);
-        return new AIAssistPage(driver);
-    }
-
-    public ProfilePage goToProfilePage() {
-        profileButton.click();
-        waitForElement(ProfilePage.editProfileButtonXpath, 10);
-        return new ProfilePage(driver);
     }
 
     public QuestionPage goToQuestionPage() {

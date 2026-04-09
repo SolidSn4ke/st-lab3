@@ -8,8 +8,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import lombok.Getter;
+
 public abstract class Page {
     WebDriver driver;
+    @Getter
+    Navigator navigator;
 
     void waitForElement(String elementXpath, Integer durationInSeconds) {
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(durationInSeconds));

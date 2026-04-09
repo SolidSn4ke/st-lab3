@@ -22,6 +22,7 @@ public class ProfilePage extends Page {
 
     public ProfilePage(WebDriver driver) {
         super.driver = driver;
+        super.navigator = new LoggedNavigator(driver);
         this.editProfileButton = driver.findElement(By.xpath(editProfileButtonXpath));
         this.profileLink = driver.findElement(By.xpath(profileLinkXpath));
         this.profileName = driver.findElement(By.xpath(profileNameXpath));
