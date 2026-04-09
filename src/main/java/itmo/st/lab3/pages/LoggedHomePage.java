@@ -1,13 +1,8 @@
 package itmo.st.lab3.pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoggedHomePage extends Page {
 
@@ -19,22 +14,25 @@ public class LoggedHomePage extends Page {
     static final String aiAssistButtonXpath = "//*[@id=\"nav-askstack\"]";
     WebElement aiAssistButton;
 
+    static final String profileButtonXpath = "//*[@id=\"user-profile-button\"]";
+    WebElement profileButton;
+
     public LoggedHomePage(WebDriver driver) {
         super.driver = driver;
         this.searchBar = driver.findElement(By.xpath(searchBarXpath));
         this.aiAssistButton = driver.findElement(By.xpath(aiAssistButtonXpath));
+        this.profileButton = driver.findElement(By.xpath(profileButtonXpath));
     }
 
     public SearchPage search(String query, SearchPage.SearchPageType type) {
         searchBar.sendKeys(query);
         searchBar.submit();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         switch (type) {
             case TAGGED -> {
-                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SearchPage.filterButtonXpath)));
+                waitForElement(SearchPage.filterButtonXpath, 10);
             }
             default -> {
-                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SearchPage.searchTipsXpath)));
+                waitForElement(SearchPage.searchTipsXpath, 10);
             }
         }
 
@@ -55,8 +53,13 @@ public class LoggedHomePage extends Page {
 
     public AIAssistPage goToAiAssistPage() {
         aiAssistButton.click();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(AIAssistPage.aiAssistantButtonXpath)));
+        waitForElement(AIAssistPage.aiAssistantButtonXpath, 10);
         return new AIAssistPage(driver);
+    }
+
+    public ProfilePage goToProfilePage() {
+        profileButton.click();
+        waitForElement(ProfilePage.editProfileButtonXpath, 10);
+        return new ProfilePage(driver);
     }
 }

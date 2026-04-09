@@ -1,14 +1,8 @@
 package itmo.st.lab3.pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -29,8 +23,7 @@ public class HomePage extends Page {
 
     public AuthPage goToAuthPage() {
         logInButton.click();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(AuthPage.emailFieldXpath)));
+        waitForElement(AuthPage.emailFieldXpath, 10);
         return new AuthPage(driver);
     }
 }

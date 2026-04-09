@@ -1,14 +1,8 @@
 package itmo.st.lab3.pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import lombok.Getter;
 
 @Getter
@@ -33,8 +27,7 @@ public class AIAssistPage extends Page {
     public AIAssistPage askAIAssistant(String question) {
         aiAssistantTextArea.sendKeys(question);
         aiAssistantButton.click();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(rateButtonXpath)));
+        waitForElement(rateButtonXpath, 60);
         this.codeBlock = driver.findElement(By.xpath(codeBlockXpath));
         return this;
     }
