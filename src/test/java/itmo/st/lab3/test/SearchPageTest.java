@@ -2,6 +2,7 @@ package itmo.st.lab3.test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 import java.util.List;
@@ -18,9 +19,6 @@ import itmo.st.lab3.pages.LoggedHomePage;
 import itmo.st.lab3.pages.SearchPage;
 
 public class SearchPageTest extends PageTest {
-
-    String EMAIL = System.getenv("ST_LAB3_EMAIL");
-    String PASSWORD = System.getenv("ST_LAB3_PASSWORD");
 
     @TestFactory
     public Stream<DynamicTest> searchTest() {
@@ -47,6 +45,21 @@ public class SearchPageTest extends PageTest {
                             .taggedSearch(tags);
                     assertArrayEquals(tags, searchPage.getUsedTaggs().findElements(By.xpath(".//a")).stream()
                             .map(elem -> elem.getAttribute("innerText")).toArray());
+                }));
+    }
+
+    @TestFactory
+    public Stream<DynamicTest> searchByUserTest() {
+        return RunEnvironment.getWebDrivers().stream()
+                .map(d -> dynamicTest(d.getClass().getName().replace(d.getClass().getPackageName(), ""), () -> {
+                    HomePage homePage = new HomePage(d);
+                    AuthPage authPage = homePage.goToAuthPage();
+                    LoggedHomePage loggedHomePage = authPage.logIn(EMAIL, PASSWORD);
+                    SearchPage searchPage = loggedHomePage.search("user:1234");
+
+                    assertTrue(searchPage.getDivWithResults()
+                            .findElements(By.xpath(".//a/span")).stream()
+                            .map(span -> span.getAttribute("innerText")).allMatch(s -> s.equals("Jody Dawkins")));
                 }));
     }
 }

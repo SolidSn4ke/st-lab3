@@ -23,6 +23,9 @@ public class SearchPage extends Page {
     static final String usedTaggsXpath = "//*[@id=\"mainbar\"]/div[3]";
     WebElement usedTaggs;
 
+    static final String divWithResultsXpath = "//*[@id=\"mainbar\"]/div[4]/div";
+    WebElement divWithResults;
+
     public SearchPage(WebDriver driver, SearchPageType type) {
         super.driver = driver;
         switch (type) {
@@ -31,9 +34,8 @@ public class SearchPage extends Page {
             }
             default -> {
                 this.searchResults = driver.findElement(By.xpath(searchResultsXpath));
+                this.divWithResults = driver.findElement(By.xpath(divWithResultsXpath));
             }
         }
-
     }
-
 }

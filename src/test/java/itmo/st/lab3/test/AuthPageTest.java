@@ -15,9 +15,6 @@ import itmo.st.lab3.pages.LoggedHomePage;
 
 public class AuthPageTest extends PageTest {
 
-    String EMAIL = System.getenv("ST_LAB3_EMAIL");
-    String PASSWORD = System.getenv("ST_LAB3_PASSWORD");
-
     @TestFactory
     public Stream<DynamicTest> logInTest() {
         return RunEnvironment.getWebDrivers().stream()
