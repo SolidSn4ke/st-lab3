@@ -22,11 +22,31 @@ public class LoggedHomePage extends Page {
 
     }
 
-    public SearchPage search(String query) {
+    public SearchPage search(String query, SearchPage.SearchPageType type) {
         searchBar.sendKeys(query);
         searchBar.submit();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SearchPage.searchTipsXpath)));
-        return new SearchPage(driver);
+        switch (type) {
+            case TAGGED -> {
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SearchPage.filterButtonXpath)));
+            }
+            default -> {
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SearchPage.searchTipsXpath)));
+            }
+        }
+
+        return new SearchPage(driver, type);
+    }
+
+    public SearchPage search(String query) {
+        return search(query, SearchPage.SearchPageType.DEFAULT);
+    }
+
+    public SearchPage taggedSearch(String[] tags) {
+        StringBuilder sb = new StringBuilder();
+        for (String tag : tags) {
+            sb.append(String.format("[%s]", tag));
+        }
+        return search(sb.toString(), SearchPage.SearchPageType.TAGGED);
     }
 }
