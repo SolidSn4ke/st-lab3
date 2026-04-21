@@ -4,9 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import lombok.Getter;
-
-@Getter
 public class ProfilePage extends Page {
     static final String editProfileButtonXpath = "//a[text()=\" Edit profile\"]";
     WebElement editProfileButton;
@@ -39,5 +36,13 @@ public class ProfilePage extends Page {
         waitForElement(aboutSectionXpath, 10);
         this.aboutSection = driver.findElement(By.xpath(aboutSectionXpath));
         return this;
+    }
+
+    public String getProfileName() {
+        return this.profileName.getAttribute("innerText");
+    }
+
+    public String getAboutSectionText() {
+        return this.aboutSection.getText();
     }
 }

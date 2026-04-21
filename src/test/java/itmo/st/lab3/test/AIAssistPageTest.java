@@ -25,7 +25,7 @@ public class AIAssistPageTest extends PageTest {
                     LoggedHomePage loggedHomePage = authPage.logIn(EMAIL, PASSWORD);
                     AIAssistPage aiAssistPage = loggedHomePage.getNavigator().goToAiAssistPage();
                     aiAssistPage.askAIAssistant(question);
-                    assertEquals("haskell", aiAssistPage.getCodeBlock().getAttribute("code-language"));
+                    assertEquals("haskell", aiAssistPage.getCodeBlockLanguage());
                 }));
     }
 }

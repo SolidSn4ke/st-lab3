@@ -1,6 +1,6 @@
 package itmo.st.lab3.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 import java.util.stream.Stream;
@@ -21,26 +21,17 @@ public class SavedQuestionsPageTest extends PageTest {
     public Stream<DynamicTest> saveQuestionTest() {
         return RunEnvironment.getWebDrivers().stream()
                 .map(d -> dynamicTest(d.getClass().getName().replace(d.getClass().getPackageName(), ""), () -> {
+                    String questionName;
                     HomePage homePage = new HomePage(d);
                     AuthPage authPage = homePage.goToAuthPage();
                     LoggedHomePage loggedHomePage = authPage.logIn(EMAIL, PASSWORD);
-                    SavedQuestionsPage savedQuestionsPage = ((LoggedNavigator) loggedHomePage.getNavigator())
-                            .goToSavedQuestionsPage();
-                    Integer savedQuestionsCountBefore = Integer.valueOf(
-                            savedQuestionsPage.getNumOfSavedQuestions()
-                                    .getAttribute("innerText")
-                                    .split(" ")[0]);
-                    loggedHomePage = savedQuestionsPage.getNavigator().goToHomePage();
                     QuestionPage questionPage = loggedHomePage.goToQuestionPage(1);
+                    questionName = questionPage.getQuestionName();
                     questionPage.save();
-                    savedQuestionsPage = ((LoggedNavigator) questionPage.getNavigator())
+                    SavedQuestionsPage savedQuestionsPage = ((LoggedNavigator) questionPage.getNavigator())
                             .goToSavedQuestionsPage();
-                    Integer savedQuestionsCountAfter = Integer.valueOf(
-                            savedQuestionsPage.getNumOfSavedQuestions()
-                                    .getAttribute("innerText")
-                                    .split(" ")[0]);
-                    assertEquals(savedQuestionsCountBefore + 1,
-                            savedQuestionsCountAfter);
+                    Boolean isPresent = savedQuestionsPage.checkIfQuestionIsPresent(questionName);
+                    assertTrue(isPresent);
                 }));
     }
 }

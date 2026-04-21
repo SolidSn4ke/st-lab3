@@ -4,9 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import lombok.Getter;
-
-@Getter
 public class SearchPage extends Page {
 
     enum SearchPageType {
@@ -20,8 +17,8 @@ public class SearchPage extends Page {
 
     static final String searchTipsXpath = "//*[@id=\"mainbar\"]/div[1]/div/div[1]/a";
 
-    static final String usedTaggsXpath = "//*[@id=\"mainbar\"]/div[3]";
-    WebElement usedTaggs;
+    static final String usedTagsXpath = "//*[@id=\"mainbar\"]/div[3]";
+    WebElement usedTags;
 
     static final String divWithResultsXpath = "//*[@id=\"mainbar\"]/div[4]/div";
     WebElement divWithResults;
@@ -31,12 +28,37 @@ public class SearchPage extends Page {
         super.navigator = new LoggedNavigator(driver);
         switch (type) {
             case TAGGED -> {
-                this.usedTaggs = driver.findElement(By.xpath(usedTaggsXpath));
+                this.usedTags = driver.findElement(By.xpath(usedTagsXpath));
             }
             default -> {
                 this.searchResults = driver.findElement(By.xpath(searchResultsXpath));
                 this.divWithResults = driver.findElement(By.xpath(divWithResultsXpath));
             }
         }
+    }
+
+    public String getSearchResults() {
+        return this.searchResults.getAttribute("innerText");
+    }
+
+    public String[] getUsedTags() {
+        return (String[]) this.usedTags.findElements(By.xpath(".//a")).stream()
+                .map(elem -> elem.getAttribute("innerText"))
+                .toArray();
+    }
+
+    public boolean checkIfAllResultsIsFromOneUser(String username) {
+        return this.divWithResults.findElements(By.xpath(".//a/span")).stream()
+                .map(span -> span.getAttribute("innerText"))
+                .allMatch(s -> s.equals(username));
+    }
+
+    public boolean checkIfResultsScoreHigher(Integer score) {
+        return this.divWithResults
+                .findElements(By.xpath(
+                        ".//div[@class='s-post-summary--stats-item s-post-summary--stats-item__emphasized']/span[1]"))
+                .stream()
+                .map(span -> Long.valueOf(span.getAttribute("innerText")))
+                .allMatch(l -> l > score);
     }
 }

@@ -23,9 +23,9 @@ public class QuestionPageTest extends PageTest {
                     AuthPage authPage = homePage.goToAuthPage();
                     LoggedHomePage loggedHomePage = authPage.logIn(EMAIL, PASSWORD);
                     QuestionPage questionPage = loggedHomePage.goToQuestionPage(1);
-                    Integer scoreBefore = Integer.valueOf(questionPage.getQuestionScore().getAttribute("innerText"));
+                    Integer scoreBefore = Integer.valueOf(questionPage.getQuestionScore());
                     questionPage.upvote();
-                    Integer scoreAfter = Integer.valueOf(questionPage.getQuestionScore().getAttribute("innerText"));
+                    Integer scoreAfter = Integer.valueOf(questionPage.getQuestionScore());
                     assertEquals(scoreBefore + 1, scoreAfter);
                 }));
     }

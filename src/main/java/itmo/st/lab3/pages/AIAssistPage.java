@@ -4,9 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import lombok.Getter;
-
-@Getter
 public class AIAssistPage extends Page {
     static final String rateButtonXpath = "//button[contains(text(),'Yes')]";
 
@@ -31,5 +28,9 @@ public class AIAssistPage extends Page {
         waitForElement(rateButtonXpath, 60);
         this.codeBlock = driver.findElement(By.xpath(codeBlockXpath));
         return this;
+    }
+
+    public String getCodeBlockLanguage() {
+        return this.codeBlock.getAttribute("code-language");
     }
 }

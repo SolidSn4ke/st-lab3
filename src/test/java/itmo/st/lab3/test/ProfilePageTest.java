@@ -27,8 +27,7 @@ public class ProfilePageTest extends PageTest {
                     ProfilePage profilePage = ((LoggedNavigator) loggedHomePage.getNavigator()).goToProfilePage();
                     EditProfilePage editProfilePage = profilePage.goToEditProfilePage();
                     profilePage = editProfilePage.editAboutAndSave(sb.toString());
-                    assertEquals(sb.toString(),
-                            profilePage.goToProfileDisplay().getAboutSection().getText());
+                    assertEquals(sb.toString(), profilePage.goToProfileDisplay().getAboutSectionText());
                 }));
     }
 
@@ -40,8 +39,7 @@ public class ProfilePageTest extends PageTest {
                     AuthPage authPage = homePage.goToAuthPage();
                     LoggedHomePage loggedHomePage = authPage.logIn(EMAIL, PASSWORD);
                     ProfilePage profilePage = ((LoggedNavigator) loggedHomePage.getNavigator()).goToProfilePage();
-                    assertEquals("Einherjar",
-                            profilePage.getProfileName().getAttribute("innerText"));
+                    assertEquals("Einherjar", profilePage.getProfileName());
                 }));
     }
 }

@@ -6,9 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import lombok.Getter;
-
-@Getter
 public class QuestionPage extends Page {
 
     static final String questionScoreXpath = "//*[@id=\"question\"]/div[2]/div[1]/div/div[2]";
@@ -20,12 +17,16 @@ public class QuestionPage extends Page {
     static final String saveButtonXpath = "//*[@id=\"saves-btn-11227809\"]";
     WebElement saveButton;
 
+    static final String questionNameXpath = "//h1[@itemprop='name']/a";
+    WebElement questionName;
+
     public QuestionPage(WebDriver driver) {
         super.driver = driver;
         super.navigator = new LoggedNavigator(driver);
         this.questionScore = driver.findElements(By.xpath(questionScoreXpath)).get(0);
         this.upvoteButton = driver.findElement(By.xpath(upvoteButtonXpath));
         this.saveButton = driver.findElement(By.xpath(saveButtonXpath));
+        this.questionName = driver.findElement(By.xpath(questionNameXpath));
     }
 
     public QuestionPage upvote() {
@@ -43,5 +44,13 @@ public class QuestionPage extends Page {
             e.printStackTrace();
         }
         return this;
+    }
+
+    public Integer getQuestionScore() {
+        return Integer.valueOf(this.questionScore.getAttribute("innerText"));
+    }
+
+    public String getQuestionName() {
+        return this.questionName.getText();
     }
 }

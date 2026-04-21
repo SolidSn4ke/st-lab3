@@ -17,4 +17,13 @@ public class SavedQuestionsPage extends Page {
         super.navigator = new LoggedNavigator(driver);
         this.numOfSavedQuestions = driver.findElement(By.xpath(numOfSavedQuestionsXpath));
     }
+
+    public boolean checkIfQuestionIsPresent(String question) {
+        try {
+            waitForElement(String.format("//a[contains(text(), '%s')]", question), 10);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
