@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class LoggedNavigator extends Navigator {
 
-    static final String savesPageButtonXpath = "/html/body/div[3]/div[1]/div[1]/nav/ol/li[1]/ol/li[5]/a";
+    static final String savesPageButtonXpath = "//*[@id=\"left-sidebar\"]/div[1]/nav/ol/li[1]/ol/li[5]/a";
     WebElement savesPageButton;
 
     static final String profilePageButtonXpath = "//*[@id=\"user-profile-button\"]";

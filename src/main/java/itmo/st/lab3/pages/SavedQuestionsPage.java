@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class SavedQuestionsPage extends Page {
 
-    static final String numOfSavedQuestionsXpath = "/html/body/div[3]/div[2]/div[3]/div[2]/div[2]/h2";
+    static final String numOfSavedQuestionsXpath = "//h2[contains(text(), 'saved item')]";
     WebElement numOfSavedQuestions;
 
     public SavedQuestionsPage(WebDriver driver) {

@@ -27,14 +27,20 @@ public class SavedQuestionsPageTest extends PageTest {
                     SavedQuestionsPage savedQuestionsPage = ((LoggedNavigator) loggedHomePage.getNavigator())
                             .goToSavedQuestionsPage();
                     Integer savedQuestionsCountBefore = Integer.valueOf(
-                            savedQuestionsPage.getNumOfSavedQuestions().getAttribute("innerText").split(" ")[0]);
+                            savedQuestionsPage.getNumOfSavedQuestions()
+                                    .getAttribute("innerText")
+                                    .split(" ")[0]);
                     loggedHomePage = savedQuestionsPage.getNavigator().goToHomePage();
-                    QuestionPage questionPage = loggedHomePage.goToQuestionPage();
+                    QuestionPage questionPage = loggedHomePage.goToQuestionPage(1);
                     questionPage.save();
-                    savedQuestionsPage = ((LoggedNavigator) questionPage.getNavigator()).goToSavedQuestionsPage();
+                    savedQuestionsPage = ((LoggedNavigator) questionPage.getNavigator())
+                            .goToSavedQuestionsPage();
                     Integer savedQuestionsCountAfter = Integer.valueOf(
-                            savedQuestionsPage.getNumOfSavedQuestions().getAttribute("innerText").split(" ")[0]);
-                    assertEquals(savedQuestionsCountBefore + 1, savedQuestionsCountAfter);
+                            savedQuestionsPage.getNumOfSavedQuestions()
+                                    .getAttribute("innerText")
+                                    .split(" ")[0]);
+                    assertEquals(savedQuestionsCountBefore + 1,
+                            savedQuestionsCountAfter);
                 }));
     }
 }

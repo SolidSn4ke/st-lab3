@@ -6,19 +6,19 @@ import org.openqa.selenium.WebElement;
 
 public class LoggedHomePage extends Page {
 
-    static final String searchBarXpath = "//*[@id=\"search\"]/div/input";
+    static final String searchBarXpath = "//input[@placeholder='Search…']";
     WebElement searchBar;
 
-    static final String reputationXpath = "//*[@id=\"user-profile-button\"]/div[2]/ul/li[1]/span";
+    static final String reputationXpath = "//span[contains(text(), 'reputation')]";
 
-    protected static final String firstQuestionXpath = "/html/body/div[3]/div[2]/div[1]/div[3]/div/div[1]/div/div[2]/h3/a";
-    WebElement firstQuestion;
+    static final String questionsDivXpath = "//div[@itemprop='mainEntity']";
+    WebElement questionsDiv;
 
     public LoggedHomePage(WebDriver driver) {
         super.driver = driver;
         super.navigator = new LoggedNavigator(driver);
         this.searchBar = driver.findElement(By.xpath(searchBarXpath));
-        this.firstQuestion = driver.findElement(By.xpath(firstQuestionXpath));
+        this.questionsDiv = driver.findElement(By.xpath(questionsDivXpath));
     }
 
     public SearchPage search(String query, SearchPage.SearchPageType type) {
@@ -48,8 +48,8 @@ public class LoggedHomePage extends Page {
         return search(sb.toString(), SearchPage.SearchPageType.TAGGED);
     }
 
-    public QuestionPage goToQuestionPage() {
-        firstQuestion.click();
+    public QuestionPage goToQuestionPage(Integer questionNumber) {
+        questionsDiv.findElement(By.xpath(String.format("//div[%d]//h3/a", questionNumber))).click();
         waitForElement(QuestionPage.upvoteButtonXpath, 10);
         return new QuestionPage(driver);
     }

@@ -10,10 +10,10 @@ import lombok.NonNull;
 @Getter
 public class HomePage extends Page {
 
-    static final String logInButtonXpath = "/html/body/header/div/nav/ol/li[3]/a";
+    static final String logInButtonXpath = "//a[contains(@href, 'https://stackoverflow.com/users/login') and contains(text(), 'Log in')]";
     WebElement logInButton;
 
-    static final String searchBarXpath = "//*[@id=\"search\"]/div/input";
+    static final String searchBarXpath = "//input[@placeholder='Search…']";
     WebElement searchBar;
 
     public HomePage(@NonNull WebDriver driver) {

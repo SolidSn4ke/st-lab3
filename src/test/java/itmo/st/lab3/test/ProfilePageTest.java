@@ -7,8 +7,6 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.openqa.selenium.By;
-
 import itmo.st.lab3.env.RunEnvironment;
 import itmo.st.lab3.pages.AuthPage;
 import itmo.st.lab3.pages.EditProfilePage;
@@ -30,8 +28,7 @@ public class ProfilePageTest extends PageTest {
                     EditProfilePage editProfilePage = profilePage.goToEditProfilePage();
                     profilePage = editProfilePage.editAboutAndSave(sb.toString());
                     assertEquals(sb.toString(),
-                            profilePage.goToProfileDisplay().getAboutSection().findElement(By.xpath(".//p"))
-                                    .getText());
+                            profilePage.goToProfileDisplay().getAboutSection().getText());
                 }));
     }
 

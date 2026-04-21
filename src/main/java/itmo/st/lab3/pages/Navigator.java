@@ -34,7 +34,7 @@ public class Navigator {
 
     public LoggedHomePage goToHomePage() {
         homePageButton.click();
-        waitForElement(LoggedHomePage.firstQuestionXpath, 10);
+        waitForElement(LoggedHomePage.reputationXpath, 10);
         return new LoggedHomePage(driver);
     }
 

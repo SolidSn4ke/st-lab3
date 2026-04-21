@@ -6,10 +6,10 @@ import org.openqa.selenium.WebElement;
 
 public class EditProfilePage extends Page {
 
-    static final String aboutTextAreaXpath = "//*[@id=\"wmd-input\"]";
+    static final String aboutTextAreaXpath = "//textarea[@placeholder]";
     WebElement aboutTextArea;
 
-    static final String saveButtonXpath = "//*[@id=\"form-submit\"]/div/button";
+    static final String saveButtonXpath = "//button[contains(text(), 'Save profile')]";
     WebElement saveButton;
 
     public EditProfilePage(WebDriver driver) {

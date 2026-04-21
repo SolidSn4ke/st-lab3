@@ -8,16 +8,16 @@ import lombok.Getter;
 
 @Getter
 public class ProfilePage extends Page {
-    static final String editProfileButtonXpath = "/html/body/div[3]/div[2]/div/div[1]/div[2]/a";
+    static final String editProfileButtonXpath = "//a[text()=\" Edit profile\"]";
     WebElement editProfileButton;
 
-    static final String profileLinkXpath = "/html/body/div[3]/div[2]/div/div[2]/div[1]/a[1]";
+    static final String profileLinkXpath = "//a/span[text()=\"Profile\"]";
     WebElement profileLink;
 
-    static final String aboutSectionXpath = "/html/body/div[3]/div[2]/div/main/div/div[2]/div/div[2]/div[1]/div";
+    static final String aboutSectionXpath = "//div/p[contains(text(), 'test')]";
     WebElement aboutSection;
 
-    static final String profileNameXpath = "//*[@id=\"mainbar-full\"]/div[1]/div[1]/div/div/div[1]";
+    static final String profileNameXpath = "//div[contains(text(), 'Einherjar')]";
     WebElement profileName;
 
     public ProfilePage(WebDriver driver) {
