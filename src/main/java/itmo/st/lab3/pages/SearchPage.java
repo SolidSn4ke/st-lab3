@@ -41,8 +41,8 @@ public class SearchPage extends Page {
         return this.searchResults.getAttribute("innerText");
     }
 
-    public String[] getUsedTags() {
-        return (String[]) this.usedTags.findElements(By.xpath(".//a")).stream()
+    public Object[] getUsedTags() {
+        return this.usedTags.findElements(By.xpath(".//a")).stream()
                 .map(elem -> elem.getAttribute("innerText"))
                 .toArray();
     }

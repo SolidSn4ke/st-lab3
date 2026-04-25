@@ -64,6 +64,7 @@ public class SearchPageTest extends PageTest {
                 .map(d -> dynamicTest(d.getClass().getName().replace(d.getClass().getPackageName(), ""),
                         () -> {
                             HomePage homePage = new HomePage(d);
+                            homePage.closePopUps();
                             AuthPage authPage = homePage.goToAuthPage();
                             LoggedHomePage loggedHomePage = authPage.logIn(EMAIL, PASSWORD);
                             SearchPage searchPage = loggedHomePage.search("score:20000");
